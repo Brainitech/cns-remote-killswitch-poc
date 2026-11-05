@@ -1,0 +1,22 @@
+{
+  "name": "cnd-remote-killswitch-poc",
+  "version": "1.0.0",
+  "description": "Client Demo Website with Isolated Lockdown and Safe Killswitch Testing for CND Assignment",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "killswitch": "node scripts/killswitch.js",
+    "restore": "node scripts/restore.js",
+    "toggle-lock": "node scripts/toggle-lock.js",
+    "test": "node --check server.js"
+  },
+  "keywords": [
+    "network-security",
+    "killswitch",
+    "lockdown",
+    "poc"
+  ],
+  "author": "CND Student Research",
+  "license": "ISC"
+}

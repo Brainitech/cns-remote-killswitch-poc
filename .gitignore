@@ -1,0 +1,17 @@
+# Environment variables (keeps passwords & secrets out of codebase)
+.env
+.env.local
+
+# Quarantine holding directory (keep folder structure tracked via .gitkeep)
+.bin/*
+!.bin/.gitkeep
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

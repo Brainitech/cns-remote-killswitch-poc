@@ -1,0 +1,300 @@
+/* ==========================================================================
+   ISOLATED LOCKDOWN SUBSYSTEM STYLESHEET
+   CND Remote Killswitch PoC - Computer Network Defense Assignment
+   ========================================================================== */
+
+:root {
+  --lock-bg: #0b0f17;
+  --lock-surface: #121824;
+  --lock-border: #1e293b;
+  --lock-border-focus: #3b82f6;
+  --lock-text-main: #f8fafc;
+  --lock-text-muted: #94a3b8;
+  --lock-text-dim: #64748b;
+  --lock-accent-amber: #d97706;
+  --lock-accent-amber-light: #fbbf24;
+  --lock-alert: #ef4444;
+  --lock-alert-bg: rgba(239, 68, 68, 0.1);
+  --lock-success: #10b981;
+  --lock-success-bg: rgba(16, 185, 129, 0.1);
+  --lock-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --lock-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+#cnd-lockdown-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483647; /* Highest z-index */
+  background-color: var(--lock-bg);
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, rgba(217, 119, 6, 0.08), transparent 70%),
+    linear-gradient(to bottom, rgba(11, 15, 23, 0.98), var(--lock-bg));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-family: var(--lock-font-sans);
+  color: var(--lock-text-main);
+  overflow-y: auto;
+}
+
+.lockdown-card {
+  width: 100%;
+  max-width: 540px;
+  background-color: var(--lock-surface);
+  border: 1px solid var(--lock-border);
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  padding: 2.25rem;
+  box-sizing: border-box;
+  animation: lockFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes lockFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.lockdown-header {
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--lock-border);
+  padding-bottom: 1.25rem;
+}
+
+.lockdown-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--lock-font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lock-accent-amber-light);
+  background-color: rgba(217, 119, 6, 0.12);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  padding: 0.3rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.lockdown-badge::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--lock-accent-amber-light);
+  box-shadow: 0 0 8px var(--lock-accent-amber-light);
+}
+
+.lockdown-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.lockdown-subtitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--lock-text-muted);
+}
+
+.lockdown-notice-box {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--lock-border);
+  border-radius: 6px;
+  padding: 1rem 1.15rem;
+  margin-bottom: 1.75rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--lock-text-muted);
+}
+
+.dev-contact-section {
+  background-color: rgba(30, 41, 59, 0.4);
+  border: 1px dashed var(--lock-border);
+  border-radius: 6px;
+  padding: 1rem 1.15rem;
+  margin-bottom: 1.75rem;
+}
+
+.dev-contact-title {
+  font-family: var(--lock-font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--lock-accent-amber);
+  margin-bottom: 0.5rem;
+}
+
+.dev-contact-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.dev-contact-details li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  font-family: var(--lock-font-mono);
+}
+
+.dev-contact-details li:last-child {
+  margin-bottom: 0;
+}
+
+.dev-contact-details .label {
+  color: var(--lock-text-dim);
+}
+
+.dev-contact-details .val {
+  color: var(--lock-text-main);
+  user-select: all;
+}
+
+/* Authentication Form */
+.lockdown-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--lock-text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 0.9rem;
+  background-color: #0b0f17;
+  border: 1px solid var(--lock-border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: var(--lock-font-mono);
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+.password-input:focus {
+  border-color: var(--lock-accent-amber);
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+}
+
+.toggle-pwd-btn {
+  position: absolute;
+  right: 0.6rem;
+  background: transparent;
+  border: none;
+  color: var(--lock-text-dim);
+  cursor: pointer;
+  padding: 0.35rem;
+  font-size: 0.8rem;
+  font-family: var(--lock-font-mono);
+  line-height: 1;
+}
+
+.toggle-pwd-btn:hover {
+  color: var(--lock-text-main);
+}
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.25rem;
+  background-color: var(--lock-accent-amber);
+  color: #0b0f17;
+  font-weight: 600;
+  font-size: 0.925rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+  letter-spacing: 0.01em;
+}
+
+.submit-btn:hover {
+  background-color: #f59e0b;
+}
+
+.submit-btn:active {
+  transform: translateY(1px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Status message */
+.lockdown-message {
+  display: none;
+  padding: 0.75rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-top: 0.5rem;
+}
+
+.lockdown-message.error {
+  display: block;
+  background-color: var(--lock-alert-bg);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  animation: shake 0.4s ease-in-out;
+}
+
+.lockdown-message.success {
+  display: block;
+  background-color: var(--lock-success-bg);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #6ee7b7;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.lockdown-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-family: var(--lock-font-mono);
+  font-size: 0.725rem;
+  color: var(--lock-text-dim);
+}

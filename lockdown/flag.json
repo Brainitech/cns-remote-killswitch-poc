@@ -1,0 +1,13 @@
+{
+  "isLocked": false,
+  "systemStatus": "LOCKED",
+  "incidentCode": "CND-SECURITY-TRIGGER-403",
+  "notice": "Administrative lockdown protocol is currently engaged for this demonstration portal.",
+  "devContact": {
+    "role": "Im Just a Kid",
+    "email": "justakid@example.com",
+    "phone": "+91 707xxx16xx"
+  },
+  "timestamp": "2026-11-05T23:48:41.234Z",
+  "authHash": "49b0ea37cc09f0e722207101edf9ba3ee3caebf670ca1b8eb211025a4aaa5be2"
+}

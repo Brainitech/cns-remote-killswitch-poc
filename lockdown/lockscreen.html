@@ -1,0 +1,63 @@
+<div id="cnd-lockdown-container" role="dialog" aria-modal="true" aria-labelledby="lock-title">
+  <div class="lockdown-card">
+    <div class="lockdown-header">
+      <div id="lock-incident-badge" class="lockdown-badge">Incident Code: CND-SECURITY-TRIGGER-403</div>
+      <h1 id="lock-title" class="lockdown-title">System Lockdown Active</h1>
+      <p id="lock-subtitle" class="lockdown-subtitle">Access to this client demonstration environment is temporarily suspended.</p>
+    </div>
+
+    <div id="lock-notice" class="lockdown-notice-box">
+      <strong>Action Required: Contact Dev for Password</strong><br>
+      <span id="lock-notice-text">Administrative lockdown protocol is currently engaged for this demonstration portal.</span>
+    </div>
+
+    <div class="dev-contact-section">
+      <div class="dev-contact-title">Designated Developer Contact</div>
+      <ul id="dev-contact-list" class="dev-contact-details">
+        <li>
+          <span class="label">Engineering Role:</span>
+          <span id="dev-role" class="val">Im Just a Kid</span>
+        </li>
+        <li>
+          <span class="label">Direct Hotline:</span>
+          <span id="dev-phone" class="val">+91 707xxx16xx</span>
+        </li>
+        <li>
+          <span class="label">Internal Email:</span>
+          <span id="dev-email" class="val">justakid@example.com</span>
+        </li>
+      </ul>
+    </div>
+
+    <form id="lockdown-form" class="lockdown-form" autocomplete="off" onsubmit="return false;">
+      <div class="form-group">
+        <label for="lockdown-pwd-input" class="form-label">
+          <span>Administrative Passphrase</span>
+          <span id="char-indicator" style="font-family: var(--lock-font-mono); font-size: 0.75rem;"></span>
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="lockdown-pwd-input" 
+            name="password"
+            class="password-input" 
+            placeholder="Enter unlock passphrase..." 
+            required 
+            autofocus 
+          />
+          <button type="button" id="toggle-pwd-btn" class="toggle-pwd-btn" aria-label="Toggle password visibility">SHOW</button>
+        </div>
+      </div>
+
+      <button type="submit" id="lockdown-submit-btn" class="submit-btn">
+        <span id="btn-text">Authenticate & Disengage Lockdown</span>
+      </button>
+
+      <div id="lockdown-msg" class="lockdown-message" role="alert"></div>
+    </form>
+
+    <div class="lockdown-footer">
+      CND Defense Module v1.4 • SHA-256 Authentication • Killswitch Target Isolation
+    </div>
+  </div>
+</div>
