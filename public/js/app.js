@@ -100,8 +100,26 @@
     setInterval(updateNodeLatencies, 15000);
   }
 
+  // Auto-reload watcher: periodically checks if the system transitioned to locked
+  function watchLockdownTransition() {
+    setInterval(async () => {
+      try {
+        const res = await fetch('/api/status');
+        if (!res.ok) return;
+        const data = await res.json();
+        // If site is locked and lockscreen overlay is not yet mounted, reload immediately!
+        if (data.isLocked && !document.getElementById('cnd-lockdown-container')) {
+          window.location.reload();
+        }
+      } catch (e) {
+        // Silently ignore transient network drops
+      }
+    }, 2000);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     checkSystemLockdown();
     initLiveTelemetry();
+    watchLockdownTransition();
   });
 })();

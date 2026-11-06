@@ -32,7 +32,7 @@ const flagPath = path.join(lockdownDir, "flag.json")
 
 const TARGET_URL = "https://dontpad.com/c2FhaGl0Cg=="
 const POLL_INTERVAL_MS = 5000
-const LOCKDOWN_THRESHOLD_MS = 30000 // 1 minute (60s)
+const LOCKDOWN_THRESHOLD_MS = 30000 // 30 seconds
 
 // Helper: Ensure .bin directory exists
 if (!fs.existsSync(binDir)) {
@@ -81,7 +81,7 @@ function lockDownSite() {
   }
 
   console.log("============================================================")
-  console.log(' [!] 1-MINUTE THRESHOLD REACHED: URL remained "0" for 60s.')
+  console.log(' [!] 30-SECOND THRESHOLD REACHED: URL remained "0" for 30s.')
   console.log(" [!] LOCKDOWN ENGAGED: isLocked set to TRUE.")
   console.log(" [!] The website is now LOCKED DOWN.")
   console.log(" [!] STOPPING POLLING NOW: Unlock must be performed via password in web UI.")
@@ -176,7 +176,7 @@ console.log("============================================================")
 console.log(" REMOTE TOGGLE LOCK & KILLSWITCH MONITOR STARTED")
 console.log(` Target URL       : ${TARGET_URL}`)
 console.log(` Polling Interval : ${POLL_INTERVAL_MS / 1000} seconds`)
-console.log(` Threshold for 0  : ${LOCKDOWN_THRESHOLD_MS / 1000} seconds (1 minute)`)
+console.log(` Threshold for 0  : ${LOCKDOWN_THRESHOLD_MS / 1000} seconds`)
 console.log(" Initial State    : Site UNLOCKED (Timer initiated)")
 console.log("============================================================\n")
 

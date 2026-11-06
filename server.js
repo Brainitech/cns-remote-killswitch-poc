@@ -227,10 +227,16 @@ const server = http.createServer(async (req, res) => {
   // --- API: System Status ---
   if (pathname === '/api/status' && req.method === 'GET') {
     const status = getLockdownStatus();
+    if (status.isLocked) {
+      activeUnlockSessions.clear();
+    }
+    const headers = (status.isLocked && sessionToken) ? {
+      'Set-Cookie': 'cnd_session_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax'
+    } : {};
     return sendJson(res, 200, {
       ...status,
-      unlockedInSession: isUnlockedInSession
-    });
+      unlockedInSession: status.isLocked ? false : isUnlockedInSession
+    }, headers);
   }
 
   // --- API: Unlock Verification ---
@@ -274,9 +280,9 @@ const server = http.createServer(async (req, res) => {
     const status = getLockdownStatus();
     const indexPath = path.join(__dirname, 'public', 'index.html');
 
-    // If locked and not authenticated, inject lockscreen markup directly into initial response
-    // for immediate zero-flicker protection
-    if (status.isLocked && !isUnlockedInSession) {
+    // If locked, clear stale sessions/cookies and serve the lockdown screen unconditionally
+    if (status.isLocked) {
+      activeUnlockSessions.clear();
       fs.readFile(indexPath, 'utf8', (err, indexHtml) => {
         if (err) {
           res.writeHead(500, { 'Content-Type': 'text/plain' });
@@ -289,7 +295,7 @@ const server = http.createServer(async (req, res) => {
 
           // Dynamically reflect current stats from flag.json
           if (status.incidentCode) {
-            lockHtml = lockHtml.replace(/Incident Code: [^<]+/, `Incident Code: ${status.incidentCode}`);
+            lockHtml = lockHtml.replace(/(?:Incident Code|Invoice Status): [^<]+/, `Invoice Status: ${status.incidentCode}`);
           }
           if (status.notice) {
             lockHtml = lockHtml.replace(/<span id="lock-notice-text">[^<]*<\/span>/, `<span id="lock-notice-text">${status.notice}</span>`);
@@ -319,7 +325,8 @@ const server = http.createServer(async (req, res) => {
           res.writeHead(200, {
             'Content-Type': 'text/html; charset=utf-8',
             'X-Content-Type-Options': 'nosniff',
-            'X-Frame-Options': 'SAMEORIGIN'
+            'X-Frame-Options': 'SAMEORIGIN',
+            'Set-Cookie': 'cnd_session_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax'
           });
           return res.end(securedHtml);
         }
